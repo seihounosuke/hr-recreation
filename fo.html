@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="tri/tripleclick.js"></script>
+
+    <style>
+        *{
+            color: whitesmoke;
+        }
+        #bg1{
+            z-index: -4;
+            background-color: rgb(6, 34, 61);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top : 0px;
+            bottom : 0px;
+        }
+        #bg2{
+            z-index: -5;
+            background-color: rgb(255, 160, 51);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top : 0px;
+            bottom : 0px;
+        }
+
+        .cloud{
+            /*cursor: pointer;*/
+        }
+
+        .hid{
+            display: none;
+        }
+    </style>
+    
+</head>
+<body style="padding: 0px;margin: 0px;overflow: hidden;">
+    <div id="bg1"></div>
+    <div id="bg2"></div>
+    
+    <div class="wrap" style="width: 80%"></div>
+    <div id="fail" class="hid" style="position: absolute; top: 40%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+        <h2 class="">失敗</h2>
+        <p id="msg"></p>
+        <button id="retrybtn" class="btn btn-warning" onclick="retry()">再度挑戦</button>
+    </div>
+    <div id="success" class="hid" style="position: absolute; top: 40%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+        <h2>成功</h2>
+        <p id="msg">おめでとうございます。</p>
+    </div>
+
+    <div id="mainwindow">
+    <img src="svg/sun.svg" height="20%" style="position: absolute;top: 40%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+    <img class="cloud" src="svg/cloud1.svg" height="50%" style="position: absolute;top: 10%;left: 40%;">
+    <img class="cloud" src="svg/cloud2.svg" height="35%" style="position: absolute;top: 10%;left: 5%;">
+    <img class="cloud" src="svg/cloud2.svg" height="70%" style="position: absolute;top: -5%;left: -10%; opacity: 95%;">
+    <img class="cloud" src="svg/cloud1.svg" height="35%" style="position: absolute;top: 15%;right: 0%; opacity: 95%;">
+    <img class="cloud" src="svg/cloud1.svg" height="50%" style="position: absolute;top: 0%;right: -5%; opacity: 95%;">
+    <img class="cloud" src="svg/cloud2.svg" height="35%" style="position: absolute;top: 15%;right: 0%; opacity: 95%;">
+    <!--<div style="width: 50%; position: absolute; top: 75%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">-->
+    <div class="d-grid gap-2 col-8 mx-auto" style="position: absolute; top: 75%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+    <input width="25%" type="text" class="form-control" placeholder="キーワードを入力" id="kw">
+    <button class="btn btn-primary" onclick="judge()" id="send">SEND</button>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script>
+        let phase = $(".cloud").length;
+        let life = 2;
+        function judge(){
+            console.log($("#kw").val());
+            $("#mainwindow").addClass("hid");
+            if($("#kw").val()=="kw"){
+                if(phase != 0){
+                    $("#fail").removeClass("hid");
+                    $("#msg").text("失敗です。失敗した旨をMCにお伝えください。(この場合リトライはできません。何が悪かったか)");
+                    $("#retrybtn").addClass("hid");
+                }else{
+                    $("#success").removeClass("hid");
+                    $("#msg").text("成功です。おめでとうございます。");
+                }
+            }else{
+                $("#fail").removeClass("hid");
+                $("#msg").text("解答が間違っています。");
+            }
+            str = "";
+            ent = 0;
+        }
+        function retry(){
+            $("#success").addClass("hid");
+            $("#mainwindow").removeClass("hid");
+            $("#fail").addClass("hid");
+            str = "";
+            ent = 0;
+        }
+        var k = 100;
+        
+        $('.cloud').on('tripleclick',{ threshold: 5000 }, function() {
+            console.log("tri");
+            $(this).addClass("hid");
+            phase -= 1;
+            $("#bg1").css("opacity", String(phase / $(".cloud").length));
+            if (phase == 0){
+                $("#send").removeClass("btn-primary");
+                $("#send").addClass("btn-danger");
+            }
+        });
+        let str = "";
+        let ent = 0;
+        $("body").keydown(function(event){
+            if(event.keyCode == "8"){
+                str = "";
+                ent = 0;
+            }else if(event.keyCode == "13"){
+                ent += 1
+                if(ent >= 4 && str == "70798269866982"){
+                    retry();
+                }
+            } else { str += String(event.keyCode); }
+            
+            
+            console.log(str)
+        });
+    </script>
+    </body>
