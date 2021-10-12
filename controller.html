@@ -5,7 +5,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="tri/tripleclick.js"></script>
-    <title>BONUS GAME</title>
+    <title>NANTAMA VOLTAGE CONTROLER</title>
     <style>
         *{
             color: whitesmoke;
@@ -36,10 +36,40 @@
 
         .cloud{
             /*cursor: pointer;*/
+            opacity: 100%;
         }
 
         .hid{
             display: none;
+        }
+        .shake{
+            animation: shake 0.1s linear infinite;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+                opacity: 100%;
+            }
+
+            20% {
+                transform: translateX(-6%);
+                opacity: 80%;
+            }
+            40% {
+                transform: translateX(6%);
+                opacity: 80%;
+            }
+            
+            80% {
+                transform: translateX(3%);
+                opacity: 30%;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 0%;
+            }
         }
     </style>
     
@@ -81,18 +111,33 @@
         function judge(){
             console.log($("#kw").val());
             $("#mainwindow").addClass("hid");
-            if($("#kw").val()=="kw"){
+            if($("#kw").val()=="DUMMY"){
+                $("#fail").removeClass("hid");
+                $("#msg-f").text("キーワードが違っている、、もしも僕が捕まっているのなら、その場を指揮している人にこの画面を見せてくれ。何かわかるはずだ。");
+                $("#retrybtn").removeClass("hid");
+            } else if($("#kw").val()=="SUNNY"){
                 if(phase != 0){
-                    $("#fail").removeClass("hid");
-                    $("#msg-f").text("80%クリア。何かが足りていませんでした... この画面をMCにお見せください。(ここから先はリトライはできません。何が悪かったか考えてみてください。)");
-                    $("#retrybtn").addClass("hid");
+                    if(flag == False){
+                        $("#fail").removeClass("hid");
+                        $("#msg-f").text("これでは発動はできない。もう一度考え直してくれ。セキュリティによりあと一回のみ送信が可能だ。");
+                        $("#retrybtn").removeClass("hid");
+                    } else {
+                        $("#fail").removeClass("hid");
+                        $("#msg-f").text("これでは発動はできない。もうこの端末上で送信はできない");
+                        $("#retrybtn").addClass("hid");
+                    }
                 }else{
                     $("#success").removeClass("hid");
-                    $("#msg-s").text("99%クリア。キーワードを全員で叫んだら成功です。（もうひっかけはないですよ）");
+                    $("#h-success").text("あとちょっと！");
+                    $("#msg-s").text("まだまだ君たちのボルテージが足りない、、最後に学年のみんなでキーワードを叫んでくれ。");
+                    setTimeout(() => {
+                        $("#h-success").text("成功！！");
+                        $("#msg-s").text("タマシイが充電されていく,,,しばし待て。")
+                    },30000)
                 }
             }else{
                 $("#fail").removeClass("hid");
-                $("#msg-f").text("解答が間違っています。");
+                $("#msg-f").text("キーワードが違っている。");
             }
             str = "";
             ent = 0;
@@ -108,7 +153,10 @@
         
         $('.cloud').on('tripleclick',{ threshold: 5000 }, function() {
             console.log("tri");
-            $(this).addClass("hid");
+            $(this).addClass("shake");
+            setTimeout(() => {
+                $(this).addClass("hid");
+            }, 200);
             phase -= 1;
             $("#bg1").css("opacity", String(phase / $(".cloud").length));
             if (phase == 0){
@@ -126,7 +174,7 @@
                 ent += 1
                 if(ent >= 4 && str == "70798269866982"){
                     $("#h-success").text("成功！！");
-                    $("#msg-s").text("100%クリア。あなた方はクラス対抗でありながらその垣根を越え互いに協力し合いました。特性を伸ばして協力しながら、時に競い合う。そんな私たちでありたいですね。お疲れ様でした。全クラスに100pt差し上げます。")
+                    $("#msg-s").text("タマシイが充電されていく,,,しばし待て。")
                 }else if(ent >= 4 && str == "82698384658284"){
                     retry();
                 }
