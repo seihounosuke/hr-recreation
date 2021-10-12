@@ -108,7 +108,7 @@
     <script>
         let phase = $(".cloud").length;
         let life = 2;
-        let flag = False;
+        let flag = 0;
         function judge(){
             console.log($("#kw").val());
             $("#mainwindow").addClass("hid");
@@ -118,11 +118,11 @@
                 $("#retrybtn").removeClass("hid");
             } else if($("#kw").val()=="SUNNY"){
                 if(phase != 0){
-                    if(flag == False){
+                    if(flag == 0){
                         $("#fail").removeClass("hid");
                         $("#msg-f").text("これでは発動はできない。もう一度考え直してくれ。セキュリティによりあと一回のみ送信が可能だ。");
                         $("#retrybtn").removeClass("hid");
-                        flag = True;
+                        flag = 1;
                     } else {
                         $("#fail").removeClass("hid");
                         $("#msg-f").text("これでは発動はできない。もうこの端末上で送信はできない");
