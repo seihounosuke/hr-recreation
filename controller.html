@@ -127,6 +127,9 @@
                         $("#fail").removeClass("hid");
                         $("#msg-f").text("これでは発動はできない。もうこの端末上で送信はできない");
                         $("#retrybtn").addClass("hid");
+                        setTimeout(() => {
+                            window.close()
+                        }, 4000);
                     }
                 }else{
                     $("#success").removeClass("hid");
