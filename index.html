@@ -3,17 +3,90 @@
 <head>
     <meta charset="utf8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="tri/tripleclick.js"></script>
     <title>NANTAMA-VOLTAGE</title>
-    <meta name=”description” content="NANTAMA VOLTAGE is the bonus stage.">
-    <meta name="google-site-verification" content="mco5UpENE0nHE4xM66aiYiOGVZy0wkYUmpqUvak11ho" />
+    
+    <style>
+        .shelf{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(140, 44, 3);
+            background-image: url("shelf.png");
+            background-repeat: repeat;
+            opacity: 85%;
+            z-index: 1;
+        }
+        .hid{
+            transition: all 0.5s 1s ease-in;
+
+            opacity: 0%;
+        }
+        .shake{
+            animation: shake 0.15s linear infinite;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+                transform: scale(5);
+                opacity: 100%;
+            }
+
+            20% {
+                transform: translateX(-6%);
+                opacity: 80%;
+            }
+            40% {
+                transform: translateX(6%);
+                transform: scale(2);
+                opacity: 80%;
+            }
+            
+            80% {
+                transform: translateX(3%);
+                opacity: 30%;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 0%;
+                transform: scale(0.3);
+            }
+        }
+        .k{
+            display: none;
+        }
+    </style>
 </head>
 <body style="background: black;">
+    <div class="shelf" style="user-select: none;">
+        <div style="color: white;padding: 5%;width:80%;position: absolute;top:50%;left: 50%;transform:translate(-50%, -50%); -webkit-transform: translate(-50%,-50%);">
+            <h2>REMOVE ME</h2><p>わたしは入り口を塞ぐ壁です。この壁を取り除けば、コントローラーにたどり着けます。</p>
+        </div>
+    </div>
+    <div style="z-index: -2;">
     <div style="padding: 5%;width:80%;position: absolute;top:50%;left: 50%;transform:translate(-50%, -50%); -webkit-transform: translate(-50%,-50%);">
-<div class="d-flex"><h1 class="p-2" style="color: white;text-align: right;">NANTAMA VOLTAGE<br>(ボーナスゲームサイト)</h1>
-    <div class="p-3 h-3 flex-fill align-self-center" style="border-right:1px solid #ccc;"></div>
-    <div height="1em" class="p-3 h-3 flex-fill align-self-center"></div>
-<div class="p-2 flex-fill align-self-center"><a href="fo.html" class="btn btn-primary" onclick="window.open('fo.html', 'BONUSGAME', 'width=800,height=800'); return false;">開く</a></div>
-</div>
-</div>
+        <div class="d-flex"><h1 class="p-2" style="color: white;">NANTAMA VOLTAGE<br>(ヒミツ兵器サイト)</h1>
+            <div class="p-3 h-3 flex-fill align-self-center" style="border-right:1px solid #ccc;"></div>
+            <div height="1em" class="p-3 h-3 flex-fill align-self-center"></div>
+            <div class="p-2 flex-fill align-self-center"><a href="controller.html" class="btn btn-primary" onclick="window.open('controller.html', 'CONTROLLER', 'width=800,height=800'); return false;">コントローラーを開く</a></div>
+        </div>
+    </div>
+    </div>
+    <script>
+        
+        $('.shelf').on('tripleclick',{ threshold: 800 }, function() {
+            $(this).addClass("hid");
+            $(this).addClass("shake");
+            setTimeout(() => {
+                $(".shelf").addClass("k");
+            },2500);
+
+        });
+    </script>
 </body>
 </html>
