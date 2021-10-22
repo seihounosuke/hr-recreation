@@ -80,7 +80,7 @@
     
     <div class="wrap" style="width: 80%"></div>
     <div id="fail" class="hid" style="position: absolute; top: 40%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
-        <h1 class="">失敗</h2>
+        <h1 id="h_f">失敗</h2>
         <p id="msg-f"></p>
         <button id="retrybtn" class="btn btn-warning" onclick="retry()">再度挑戦</button>
     </div>
@@ -114,17 +114,20 @@
             $("#mainwindow").addClass("hid");
             if($("#kw").val()=="DUMMY"){
                 $("#fail").removeClass("hid");
+                $("#h_f").text("これはダミー");
                 $("#msg-f").text("キーワードが違っている、、もしも僕が捕まっているのなら、その場を指揮している人にこの画面を見せてくれ。何かわかるはずだ。");
                 $("#retrybtn").removeClass("hid");
             } else if($("#kw").val()=="SUNNY"){
                 if(phase != 0){
                     if(flag == 0){
                         $("#fail").removeClass("hid");
+                        $("#h_f").text("80%");
                         $("#msg-f").text("これでは発動はできない。もう一度考え直してくれ。現状はCLOUDYだ。雲ひとつない晴天でこそSUNNYだろう？セキュリティによりあと一回のみ送信が可能だ。");
                         $("#retrybtn").removeClass("hid");
                         flag = 1;
                     } else {
                         $("#fail").removeClass("hid");
+                        $("#h_f").text("ゲームオーバー");
                         $("#msg-f").text("これでは発動はできない。もうこの端末上で送信はできない");
                         $("#retrybtn").addClass("hid");
                         setTimeout(() => {
@@ -138,7 +141,7 @@
                     setTimeout(() => {
                         $("#h-success").text("成功！！");
                         $("#msg-s").text("タマシイが充電されていく,,,しばし待て。")
-                    },30000)
+                    },5000)
                 }
             }else{
                 $("#fail").removeClass("hid");
