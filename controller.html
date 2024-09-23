@@ -101,6 +101,7 @@
     <div class="d-grid gap-2 col-8 mx-auto" style="position: absolute; top: 75%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
     <input width="25%" type="text" class="form-control" placeholder="キーワードを入力" id="kw">
     <button class="btn btn-primary" onclick="judge()" id="send">SEND</button>
+        <p>キーワードについては文書管理システムに0515と入力してください</p>
     </div>
     </div>
 
@@ -112,17 +113,17 @@
         function judge(){
             console.log($("#kw").val());
             $("#mainwindow").addClass("hid");
-            if($("#kw").val()=="DUMMY"){
+            if($("#kw").val()=="NUTTY"){
                 $("#fail").removeClass("hid");
-                $("#h_f").text("これはダミー");
-                $("#msg-f").text("キーワードが違っている、、もしも僕が捕まっているのなら、その場を指揮している人にこの画面を見せてくれ。何かわかるはずだ。");
+                $("#h_f").text("なってぃーってなんなってぃー？");
+                $("#msg-f").text("キーワードが違います。");
                 $("#retrybtn").removeClass("hid");
             } else if($("#kw").val()=="SUNNY"){
                 if(phase != 0){
                     if(flag == 0){
                         $("#fail").removeClass("hid");
-                        $("#h_f").text("80%");
-                        $("#msg-f").text("これでは発動はできない。もう一度考え直してくれ。現状はCLOUDYだ。雲ひとつない晴天でこそSUNNYだろう？セキュリティによりあと一回のみ送信が可能だ。");
+                        $("#h_f").text("秘密兵器 ERROR");
+                        $("#msg-f").text("キーワードは合っていますが、キーワードのルールを満たしていないので、発動することができません。あと一回のみ送信が可能です。1215と文書管理システムに入力して、キーワードのルールを確認してください。");
                         $("#retrybtn").removeClass("hid");
                         flag = 1;
                     } else {
@@ -136,16 +137,12 @@
                     }
                 }else{
                     $("#success").removeClass("hid");
-                    $("#h-success").text("it's a sunny day");
-                    $("#msg-s").text("まだまだ君たちのボルテージが足りない、、最後に学年のみんなでキーワードを叫んでくれ。");
-                    setTimeout(() => {
-                        $("#h-success").text("成功！！");
-                        $("#msg-s").text("タマシイが充電されていく,,,しばし待て。")
-                    },5000)
+                    $("#h-success").text("秘密兵器 発動");
+                    $("#msg-s").text("発動に成功しました。");
                 }
             }else{
                 $("#fail").removeClass("hid");
-                $("#msg-f").text("キーワードが違っている。");
+                $("#msg-f").text("キーワードが違っています。");
             }
             str = "";
             ent = 0;
